@@ -1,0 +1,373 @@
+/* ==========================================
+   RESET GENERAL Y TIPOGRAFÍA DE ALTA GAMA
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    /* CORREGIDO: Fondo romántico y oscuro unificado desde el primer milisegundo */
+    background: radial-gradient(circle at center, #24140e 0%, #0f0705 100%);
+    color: #f5ebe0;
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   SISTEMA DE PARTÍCULAS DINÁMICAS (Z-INDEX 1)
+   ========================================== */
+.canvas-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-node {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: smoothFall linear infinite;
+}
+
+@keyframes smoothFall {
+    0% { transform: translateY(-50px) translateX(0) rotate(0deg); opacity: 0; }
+    15% { opacity: 0.8; }
+    85% { opacity: 0.8; }
+    100% { transform: translateY(105vh) translateX(70px) rotate(360deg); opacity: 0; }
+}
+
+/* ==========================================
+   1. SPLASH SCREEN (Z-INDEX 100) - ¡CORREGIDO FONDO!
+   ========================================== */
+.splash-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* CORREGIDO: Hereda el fondo oscuro elegante en vez de blanco o crema plano */
+    background: radial-gradient(circle at center, #24140e 0%, #0f0705 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.splash-wrapper.fade-out-action {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+}
+
+.btn-premium-action {
+    background-color: #e76f51;
+    color: #ffffff;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(231,111,81,0.25);
+    transition: all 0.3s ease;
+}
+.btn-premium-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(231,111,81,0.4);
+}
+
+/* ==========================================
+   2. CONTENEDOR ESCENARIO BLINDADO (Z-INDEX 10)
+   ========================================== */
+.master-stage {
+    width: 100%;
+    max-width: 400px;
+    height: 85vh;
+    max-height: 700px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.scene-phase {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================
+   3. MAQUETACIÓN INTERACTIVA DEL SOBRE
+   ========================================== */
+.envelope-container {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.envelope-container:hover { transform: scale(1.02); }
+
+.envelope-body {
+    position: relative;
+    width: 290px;
+    height: 190px;
+    background-color: #dfd5c4;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 145px solid transparent;
+    border-right: 145px solid transparent;
+    border-top: 105px solid #cbd1c2;
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 5;
+}
+
+.envelope-pocket {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d1c4ac;
+    border-radius: 0 0 10px 10px;
+    z-index: 4;
+    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
+}
+
+.envelope-seal {
+    position: absolute;
+    top: 41%;
+    left: 46.5%;
+    color: #e63946;
+    font-size: 28px;
+    z-index: 6;
+    transition: transform 0.4s ease;
+}
+
+.envelope-container.envelope-open-state .envelope-flap { transform: rotateX(180deg); z-index: 2; }
+.envelope-container.envelope-open-state .envelope-seal { transform: translateY(-40px) scale(1.1); opacity: 0; }
+
+.instruction-hint {
+    margin-top: 25px;
+    font-style: italic;
+    color: #baa495;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+}
+
+/* La tarjeta pergamino de la carta */
+.letter-card {
+    background-color: #fffdf9;
+    padding: 35px 24px;
+    border-radius: 24px;
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+    border: 1px solid #ebdecd;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.letter-viewport {
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.typewriter-container {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.75;
+    font-size: 1.1rem;
+    color: #2e1a12;
+    white-space: pre-wrap;
+}
+
+.romantic-title {
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 2.8rem;
+    color: #e76f51;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.btn-next-phase {
+    background-color: #2e1a12;
+    color: #f6f3ea;
+    border: none;
+    padding: 12px 45px;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+    margin-top: auto;
+}
+.btn-next-phase:hover { background-color: #e76f51; }
+
+/* ==========================================
+   4. INTERFAZ DE FASE DE JUEGO (YES / NO)
+   ========================================== */
+.game-title {
+    font-size: 2.6rem;
+    color: #e76f51;
+    margin-bottom: 45px;
+    font-weight: 600;
+}
+
+.interactive-button-wrapper {
+    display: flex;
+    gap: 30px;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.game-core-btn {
+    padding: 12px 45px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    font-family: 'Cormorant Garamond', serif;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.game-core-btn.target-yes { background-color: #2a9d8f; color: #ffffff; }
+.game-core-btn.target-yes:hover { background-color: #20796f; transform: scale(1.03); }
+.game-core-btn.target-no { background-color: #e63946; color: #ffffff; z-index: 999; }
+
+/* ==========================================
+   5. POLAROID Y GALERÍA EN LOOP SUAVE (DISEÑO PARA FOTO LARGA DE TREND)
+   ========================================== */
+.final-outro-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.outro-paragraph {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #f5ebe0;
+    font-weight: 600;
+    max-width: 340px;
+    text-align: center;
+}
+
+/* MARCO POLAROID: Adaptado en proporciones para fotos largas verticales de TikTok */
+.polaroid-widget {
+    background-color: #fbf7f0; /* Tono crema vintage suave */
+    padding: 20px 20px 28px 20px;
+    border-radius: 6px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 
+                inset 0 0 10px rgba(0, 0, 0, 0.05);
+    transform: rotate(-2deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    width: 320px; /* Ancho cómodo para smartphone y PC */
+    margin: 0 auto;
+}
+.polaroid-widget:hover { 
+    transform: rotate(0deg) scale(1.03); 
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+}
+
+/* VENTANA DE LA IMAGEN: ¡CORREGIDA! Ahora es rectangular y vertical (350px de alto) */
+.polaroid-lens {
+    width: 280px;
+    height: 350px; /* Más alta que ancha para que quepa la foto del trend completa */
+    overflow: hidden;
+    background-color: #111;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.polaroid-slideshow {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Ajuste de la imagen única para que cubra el espacio de forma limpia */
+.polaroid-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Cubre la ventana vertical de manera perfecta y fluida */
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    z-index: 1;
+}
+
+/* Asegura la visibilidad en el bucle si decides dejar las copias */
+.polaroid-img.active-p-img {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* TEXTO DE LA POLAROID */
+.polaroid-label {
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 1.6rem;
+    color: #e76f51;
+    margin-top: 8px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+
+/* ==========================================
+   MÓDULOS DE VISIBILIDAD DE INTERFAZ
+   ========================================== */
+.hidden-stage { display: none !important; }
+
+.active-phase {
+    display: flex !important;
+    animation: masterStageFadeIn 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+}
+
+@keyframes masterStageFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
